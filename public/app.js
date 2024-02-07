@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
     const logoutBtn = document.getElementById('logout-btn');
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.getElementById('message-input');
 
     const isAuthenticated = () => {
         return localStorage.getItem('token') !== null;
@@ -63,9 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
         redirectToPage();
     });
 
+
     logoutBtn.addEventListener('click', () => {
         localStorage.removeItem('token');
         
         redirectToPage();
+    });
+
+    messageForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const message = messageInput.value.trim();
+        
+        if (message) {
+            socket.emit('sendMessage', message);
+            
+            messageInput.value = '';
+        }
     });
 });
