@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        
+        console.log(username, password);
         try {
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
@@ -59,8 +59,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstname = document.getElementById('firstname').value;
         const lastname = document.getElementById('lastname').value;
         const newPassword = document.getElementById('new-password').value;
-        
-        redirectToPage();
+        console.log(newUsername, firstname, lastname, newPassword);
+        try {
+            const response = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: newUsername, firstname, lastname, password: newPassword })
+            });
+            if (!response.ok) {
+                throw new Error('Signup failed');
+            }
+            redirectToPage();
+        } catch (error) {
+            console.error('Signup error:', error);
+        }
     });
 
 
