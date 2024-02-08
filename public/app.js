@@ -16,10 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('room-selection').style.display = 'block';
             document.getElementById('chat-container').style.display = 'block';
         } else {
-
-
             document.getElementById('login-container').style.display = 'block';
-            document.getElementById('signup-container').style.display = 'none';
+            document.getElementById('signup-container').style.display = 'block';
             document.getElementById('room-selection').style.display = 'none';
             document.getElementById('chat-container').style.display = 'none';
         }

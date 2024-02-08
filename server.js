@@ -27,7 +27,8 @@ io.on('connection', (socket) => {
     });
 });
 
-app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.json());
 
 app.use('/api/auth', authRouter);
 app.use('/api/chat', chatRouter);
@@ -39,11 +40,11 @@ mongoose.connect('mongodb://127.0.0.1/101310632_lab_test1_chat_app', {
 }).catch((err) => {
     console.error('Did not connect to MongoDB:', err.message);
 });
-
-const PORT = process.env.PORT || 3000;
 app.get('/', (req, res) => {
-    res.send('Hello, world!');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+const PORT = process.env.PORT || 3000;
+
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
