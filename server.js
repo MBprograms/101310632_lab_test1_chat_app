@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const socketio = require('socket.io');
 const authRouter = require('./routes/auth');
 const chatRouter = require('./routes/chat');
+const path = require('path'); // Import path module
 
 const app = express();
 const server = http.createServer(app);
@@ -32,17 +33,17 @@ app.use('/api/auth', authRouter);
 app.use('/api/chat', chatRouter);
 
 // mongoose connect
-mongoose.connect('mongodb://localhost:27017/test_chat_app', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
+mongoose.connect('mongodb://127.0.0.1/101310632_lab_test1_chat_app', {
 }).then(() => {
     console.log('Connected to MongoDB');
 }).catch((err) => {
-    console.error('Error connecting to MongoDB:', err.message);
+    console.error('Did not connect to MongoDB:', err.message);
 });
 
 const PORT = process.env.PORT || 3000;
+app.get('/', (req, res) => {
+    res.send('Hello, world!');
+});
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
